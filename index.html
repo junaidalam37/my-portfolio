@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.6s ease;
+            background-image: url(bg2.jpg);
+            width: 100%;
+            background-size: 800px;
+        }
+
+        /* NAVBAR */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--active-grad);
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            z-index: 1000;
+            transition: 0.4s;
+        }
+
+        header.scrolled {
+            background: var(--active-grad);
+            padding: 10px 0;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 20px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 1s forwards;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .md-grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .md-grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+            transition: 0.4s ease;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 1s forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 12px 32px rgba(0,0,0,0.18);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.3s; }
+        .card:nth-child(2) { animation-delay: 0.45s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+
+        section {
+            padding: 70px 0;
+            background: var(--bg);
+            transition: background 0.6s ease;
+        }
+
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        /* THEME BUTTONS */
+        .theme-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .theme-btn {
+            padding: 10px 18px;
+            border-radius: 20px;
+            border: none;
+            margin: 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .t1 { background: var(--grad-1); }
+        .t2 { background: var(--grad-2); }
+        .t3 { background: var(--grad-3); }
+        .t4 { background: var(--grad-4); }
+
+        .theme-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Additional Themes */
+        :root.theme-dark {
+            --bg: #0f0f0f;
+            --text: #eee;
+            --card-bg: #1a1a1a;
+            --accent: #6a5acd;
+        }
+
+        :root.theme-neon {
+            --bg: #020202;
+            --text: #ffffff;
+            --card-bg: #111111;
+            --accent: #39ff14;
+        }
+
+        :root.theme-sunset {
+            --bg: linear-gradient(120deg, #ff9a9e, #fad0c4);
+            --text: #333;
+            --card-bg: rgba(255,255,255,0.85);
+            --accent: #ff758c;
+        }
+
+        :root.theme-ocean {
+            --bg: linear-gradient(120deg, #74ebd5, #acb6e5);
+            --text: #002b36;
+            --card-bg: rgba(255,255,255,0.85);
+            --accent: #0077b6;
+        }
+
+        .profile-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: -20px;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+            animation: fadeUp 1s forwards;
+            opacity: 0;
+        }
+    
+    /* --------------------------------------------------
+   FULL PROFESSIONAL RESPONSIVE DESIGN
+---------------------------------------------------- */
+@media (max-width: 992px) {
+
+    /* Background fix */
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Navbar improvement */
+    nav {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    nav a {
+        margin-left: 15px;
+        font-size: 16px;
+    }
+
+    /* About section box */
+    #About\ me div:nth-child(2) {
+        width: 90% !important;
+        margin: auto !important;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* STACK NAVBAR */
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* HIDE NAV LINKS ON MOBILE */
+    nav div:last-child {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        background: rgba(0,0,0,0.7);
+        padding: 15px;
+        border-radius: 10px;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        width: 180px;
+    }
+
+    /* HAMBURGER BUTTON */
+    .menu-btn {
+        display: block !important;
+        font-size: 28px;
+        cursor: pointer;
+        color: white;
+    }
+
+    /* SHOW MENU WHEN ACTIVE */
+    nav.active div:last-child {
+        display: flex !important;
+    }
+
+    /* Profile picture */
+    .profile-pic {
+        width: 130px;
+        height: 130px;
+    }
+
+    /* Make all grids 1 column */
+    .grid,
+    .md-grid-3,
+    .md-grid-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Card spacing */
+    .card {
+        width: 90%;
+        margin: auto;
+    }
+
+    /* Skills section */
+    #skills {
+        background-size: cover !important;
+    }
+
+    /* Contact section alignment */
+    #contact\ me p {
+        text-align: center;
+    }
+
+    #contact\ me div[style*="display:flex"] {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    /* Social icons row */
+    #contact\ me div[style*="gap:16px"] {
+        gap: 25px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    h1, h2, h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+}
+
+
+/* Section Fade Animation */
+section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modern Hover Effect for Cards */
+.card {
+    transition: transform .35s ease, box-shadow .3s ease, scale .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0px 12px 32px rgba(0,0,0,0.22);
+}
+
+/* Better navbar visual */
+header {
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.1);
+}
+
+/* Glass effect cards */
+.card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(6px);
+}
+
+/* Profile picture glow */
+.profile-pic {
+    box-shadow: 0px 4px 40px rgba(255,255,255,0.2);
+    transition: .3s;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+}
+
+/* Link hover line */
+nav a {
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: white;
+    transition: .3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Modern buttons (if needed later) */
+.btn-modern {
+    padding: 10px 22px;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #7a00ff, #00c8ff);
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-modern:hover {
+    transform: scale(1.05);
+}
+
+
+    </style>
+</head>
+
+<body>
+
+<header id="header" style="background:linear-gradient(to right, #6a0dad, #00bfff);">
+    <nav>
+        <div class="logo" style="font-size: 20px; font-weight: bold;">My Portfolio</div>
+
+        <div class="menu-btn" style="display:none;">☰</div>
+
+        <div>
+            <a href="#About me">About me</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact me">Contact me</a>
+        </div>
+    </nav>
+</header>
+
+<div class="profile-section">
+    <img src="image.jpeg" class="profile-pic" alt="Profile Picture">
+</div>
+
+<br><br>
+
+<!-- ABOUT ME -->
+<section id="About me">
+    <div style="justify-items: center; color: white;">
+        <h1>About me</h1>
+    </div>
+
+    <div style="justify-items: center; color:#020202; background-color:#eaeaea; width:600px; margin-left:280px; margin-right:200px; font-family:Arial, Helvetica, sans-serif; border-radius:30px; animation:fadeUp 2s forwards;">
+        <br>
+        <h2>Junaid Alam</h2>
+        <p>S/O: Muhammad Raziq</p>
+        <p>Date of Birth: 01/01/2004</p>
+        <p>Address: Tehsil Adenzai Chakdara District Dir Lower</p>
+        <p>Nationality: pakistani</p>
+        <br>
+        <h2>Education</h2>
+        <p>BS Information Technology (Ongoing)</p>
+        <br><br>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+    <h2 class="section-title" style="color: white;">My Projects</h2>
+
+    <div class="container grid md-grid-3">
+
+        <div class="card">
+            <a href="https://junaidalam37.github.io/weather/">
+                <h3><img src="weather.jpg" />Weather App</h3>
+            </a>
+            <p>Using HTML, CSS and javascript and using activated API key for real map location weather forecast .</p>
+           
+        </div>
+
+        <div class="card">
+            <a href="https://junaidalam37.github.io/gym-vibe/">
+                <img src="gym.png" />
+                <h3>gym vibe</h3>
+            </a>
+            <p>Using HTML, CSS and javascript.</p>
+        </div>
+
+        <div class="card">
+            <a href="https://junaidalam37.github.io/contact_app/">
+                <img src="contact.png" />
+                <h3>Contact Manager</h3>
+            </a>
+            <p>Using HTML, CSS and javascript and for back-end using PHP, SQL and XAMPP.</p>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="container grid md-grid-3">
+
+        <div class="card">
+            <a href="https://junaidalam37.github.io/simple-calculator/">
+                <img src="calculator.png" />
+                <h3>Simple Calculator Platform</h3>
+            </a>
+            <p>Using HTML, CSS and javascript.</p>
+        </div>
+
+        <div class="card">
+            <a href="https://junaidalam37.github.io/simple-game-/">
+                <img src="game.png" />
+                <h3>Simple Minesweeper Game</h3>
+            </a>
+            <p>Using HTML, CSS and javascript.</p>
+        </div>
+
+        <div class="card">
+            <a href="https://junaidalam37.github.io/simple-Sign-Up-form/">
+                <img src="Sign-Up-form.png" />
+                <h3>Sign Up form</h3>
+            </a>
+            <p>Using HTML, CSS and javascript only front-end.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background:white; background-image:url(bg3.jpg); background-size:700px;">
+    <h2 class="section-title" style=" color: white">Skills</h2>
+
+    <div style="justify-items:center; color:white;">
+        <h2>Web Development</h2>
+    </div>
+
+    <div class="container grid md-grid-3">
+
+        <div class="card text-center">
+            <h3>Frontend</h3>
+            <p>HTML, CSS, JavaScript, node.js, Boostrap</p>
+        </div>
+
+        <div class="card text-center">
+            <h3>Backend</h3>
+            <p>PHP, SQL, XAMPP server, mysql database</p>
+        </div>
+
+        <div class="card text-center">
+            <h3>Tools</h3>
+            <p>VS code for coding, Git, Boostrap studio</p>
+        </div>
+
+        <br>
+
+        <div style="justify-items:center; color:white;">
+            <h2>Basic Networking+CCNA</h2>
+        </div>
+
+        <br>
+
+        <div class="card text-center">
+            <h3>IP Addressing and Subnetting</h3>
+            <p>Subnetting, IP classes, private and public IPs, variable length subnet mask</p>
+        </div>
+
+        <div class="card text-center">
+            <h3>Routing and Switching Basic</h3>
+            <p>static routing, dynamic routing(RIP, OSPF), VLAN, MAC Addressing</p>
+        </div>
+
+        <div class="card text-center">
+            <h3>Network Device configration</h3>
+            <p>CISCO CLI commonds, Basic configration of switches and routers</p>
+        </div>
+
+        <div class="card text-center">
+            <h3>Network Models and Protocols</h3>
+            <p>OSI and TCP/IP models, DNS, DHCP, port numbers, IPv4 and IPv6</p>
+        </div>
+
+        <div class="card text-center">
+            <h3>Networking Troubleshooting</h3>
+            <p>ping, traceroute, IP conflict resolution, ipconfig, show ip route etc</p>
+        </div>
+
+        <div class="card text-center">
+            <h3>Network Security (Basic)</h3>
+            <p>port security on switches, secure wireless setup, SSH and telnet config</p>
+        </div>
+
+        <br>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact me" style="background:#eaeaea; color:white; background-image:url(bgi.jpg); background-size:700px;">
+    <h2 class="section-title">Contact me</h2>
+
+    <div class="container text-center" style="max-width:600px;">
+        <p>Reach out for collaborations or project discussions</p>
+
+        <div style="display:flex; justify-content:center;">
+            <p>Email me:</p>
+            <a href="mailto:ja3435037@gmail.com">
+                <img style="width:30px; height:30px; margin-top:10px; margin-left:7px;" src="email.png" />
+            </a>
+        </div>
+
+        <div style="display:flex; justify-content:center;">
+            <p>Watsapp me:</p>
+            <a href="https://wa.me/message/7GF2MXIPTQS5P1">
+                <img style="width:30px; height:30px; margin-top:10px; margin-left:7px;" src="watsapp.png" />
+            </a>
+        </div>
+
+        <h2 class="section-title">Social Media</h2>
+
+        <div class="container text-center" style="max-width:600px;">
+            <div style="display:flex; justify-content:center; gap:16px;">
+                <a href="https://www.linkedin.com/in/junaid-alam-697b04395?utm_source=share_via&utm_content=profile&utm_medium=member_ios">
+                    <img src="linkedin.png" style="width:30px; height:30px;" />
+                </a>
+
+                <a href="https://www.youtube.com/@TechnicalWorld773">
+                    <img src="youtube.png" style="width:30px; height:30px;" />
+                </a>
+
+                <a href="https://www.facebook.com/share/16T89Q4kit/?mibextid=wwXIfr">
+                    <img src="facebook.png" style="width:30px; height:30px;" />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2025 Junaid Alam. All rights reserved.
+</footer>
+
+<script>
+    window.addEventListener("scroll", function () {
+        let header = document.getElementById("header");
+        if (window.scrollY > 40) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+    });
+
+    function setTheme(grad) {
+        document.documentElement.style.setProperty('--active-grad', grad);
+    }
+    // MOBILE MENU TOGGLE
+document.querySelector(".menu-btn").addEventListener("click", function () {
+    document.querySelector("nav").classList.toggle("active");
+});
+// Reveal sections on scroll
+const sections = document.querySelectorAll("section");
+
+function revealSections() {
+    sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            sec.classList.add("visible");
+        }
+    });
+}
+
+window.addEventListener("scroll", revealSections);
+window.addEventListener("load", revealSections);
+
+
+</script>
+
+</body>
+</html>
